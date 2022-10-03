@@ -1,0 +1,48 @@
+.movieTile {
+    width: calc(100% / 3.5);
+    border-radius: 25px;
+    box-shadow: 0 0 10px;
+    margin: 20px;
+    overflow: hidden;
+}
+
+.moviePoster__image {
+    width: 100%;
+}
+
+
+.movieInformation {
+    padding: 20px;
+}
+.movieInformation > h1 {
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--movie-color);
+}
+
+.features {
+    padding: 0 8px;
+    margin: 8px 0;
+}
+.feature {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin: 8px 0;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.feature > .MuiSvgIcon-root {
+    margin-right: 4px;
+}
+.rating > .MuiSvgIcon-root {
+    color: orange;
+    margin-right: 4px;
+}
+
+

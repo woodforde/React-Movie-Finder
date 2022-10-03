@@ -1,0 +1,64 @@
+.movieSearch {
+    height: 100vh;
+    overflow-y: scroll;
+    scrollbar-width: 0;
+}
+
+.header {
+    position: relative;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerBackground {
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    z-index: 1;
+}
+.headerBackground__image {
+    width: 100%;
+}
+
+.headerTitle {
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    letter-spacing: 0.09em;
+    font-weight: 500;
+    z-index: 100;
+}
+/* .headerBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    height: 300px;
+    width: 100%;
+    overflow-y: hidden;
+}
+.headerBackground__image {
+    width: 100%;
+} */
+
+.searchResults {
+    /* height: calc(100vh - 400px); */
+    /* overflow-y: scroll; */
+}
+/* .searchResults::-webkit-scrollbar {
+    display: none;
+}
+.searchResults {
+    scrollbar-width: 0;
+} */
+.searchResults__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    height: 100%;
+}
