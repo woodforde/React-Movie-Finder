@@ -78,7 +78,7 @@ function Nav({ black }) {
                                 white
                                 link__hover-effect--white
                             "
-                            onClick={() => navigate("/movies")}
+                            onClick={() => navigate("/movies", { props: "test" })}
                         >Find a movie</span>
                     </li>
                     <li className="link link__primary--white">

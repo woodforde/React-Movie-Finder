@@ -4,20 +4,91 @@
     box-shadow: 0 0 10px;
     margin: 20px;
     overflow: hidden;
+    cursor: pointer;
+    transition: all 300ms ease;
+    height: fit-content;
+}
+.movieTile:hover .moviePoster__overlay {
+    transform: translateX(0);
+}
+.movieTile:hover {
+    transform: translate(4px, -4px);
+}
+
+.moviePoster {
+    position: relative;
+}
+.moviePoster__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc(100% - 4px);
+    width: 100%;
+    transform: translateX(-100%);
+    transition: all 300ms ease;
+}
+.moviePoster__overlayBackground {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #d5d5d5;
+    opacity: 80%;
+}
+.moviePoster__overlayText {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--movie-color);
+    font-size: 32px;
+    font-weight: 700;
+    z-index: 50;
+    width: 100%;
+    height: 100%;
 }
 
 .moviePoster__image {
     width: 100%;
 }
 
-
 .movieInformation {
     padding: 20px;
 }
-.movieInformation > h1 {
+
+.title {
+    width: 100%;
     font-size: 28px;
     font-weight: 400;
     color: var(--movie-color);
+    overflow: hidden;
+    position: relative;
+    height: 32px;
+}
+.titleSpan {
+    height: 100%;
+    width: fit-content;
+    top: 0;
+    position: absolute;
+    white-space: nowrap;
+    transition: all 300ms ease;
+}
+.movieTile:hover .titleSpan {
+    animation: title-slide 3500ms infinite linear;
+}
+
+@keyframes title-slide {
+    0% {
+        transform: translateX(0);
+    }
+    40% {
+        transform: translateX(-50%);
+    }
+    90% {
+        transform: translateX(10%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
 }
 
 .features {
@@ -27,14 +98,14 @@
 .feature {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
     margin: 8px 0;
 }
 
 .rating {
     display: flex;
     align-items: center;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .feature > .MuiSvgIcon-root {
@@ -45,4 +116,37 @@
     margin-right: 4px;
 }
 
+/* Skeleton Loading State */
 
+.skeletonImage {
+    height: 300px;
+    width: 100%;
+    background-color: lightgray;
+}
+
+.skeletonInformation {
+    padding: 12px;
+}
+
+.skeletonInformation__title {
+    height: 24px;
+    background-color: gray;
+    border-radius: 25px;
+
+}
+
+.skeletonInformation__feature {
+    height: 20px;
+    padding: 0 24px;
+    background-color: grey;
+    margin: 12px 12px;
+    border-radius: 25px;
+}
+
+.skeletonRating {
+    height: 32px;
+    background-color: gray;
+    border-radius: 25px;
+}
+
+/* keyframes animation background gradient for skeleton */

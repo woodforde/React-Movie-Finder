@@ -3,17 +3,27 @@ import React, { useEffect, useState } from 'react';
 import MovieTile from '../components/MovieTile';
 import Nav from '../components/Nav';
 import './MovieSearch.css';
+import SearchIcon from '@mui/icons-material/Search';
+import LoopIcon from '@mui/icons-material/Loop';
 
 function MovieSearch() {
-    const API_KEY = process.env.API_KEY;
-
     const [movies, setMovies] = useState([]);
     const [search, setSearch] = useState("fast");
+    const [searchBar, setSearchBar] = useState("");
+    const [loading, setLoading] = useState(false);
 
     async function fetchMovies() {
-        console.log(API_KEY);
-        const { data } = await axios.get(`https://www.omdbapi.com/?s=${search}&type=movie&apikey=dba29d20`);
-        setMovies(data.Search);
+        setSearchBar(search)
+        setLoading(true);
+
+        const { data } = await axios.get(`https://www.omdbapi.com/?s=${search.toString().replace(' ', '-')}&type=movie&apikey=dba29d20`);
+        if (data.Response === "True" && search !== undefined) {
+            setMovies(data.Search)
+        } else {
+            setMovies([]);
+        }
+
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -33,19 +43,51 @@ function MovieSearch() {
                 <Nav black={false} />
                 <h1 className="headerTitle">Browse Movies</h1>
                 {/* Search Bar */}
+                <div className="searchBar">
+                    <input
+                        className="searchBar__input" 
+                        type="text"
+                        value={search}
+                        placeholder="Type something and start searching!"
+                        onChange={(e) => { setSearch(e.target.value) }}
+                        onKeyDown={(e) => { e.key === "Enter" && fetchMovies() }}
+                    />
+                    <button
+                        className="searchBar__button"
+                        onClick={ () => fetchMovies() }
+                    ><SearchIcon /></button>
+                </div>
+
             </div>
 
             {/* Movie Results :  */}
             <div className="searchResults container">
-                <h1>Search results for: <span className="maroon">"{search}"</span></h1>
-                <div className="searchResults__container">
-                    <MovieTile poster={"https://m.media-amazon.com/images/M/MV5BMTM3NTg2NDQzOF5BMl5BanBnXkFtZTcwNjc2NzQzOQ@@._V1_SX300.jpg"} title={"Fast & Furious 6"} />
-                    <MovieTile poster={"https://m.media-amazon.com/images/M/MV5BMTM3NTg2NDQzOF5BMl5BanBnXkFtZTcwNjc2NzQzOQ@@._V1_SX300.jpg"} title={"Fast & Furious 6"} />
-                    <MovieTile poster={"https://m.media-amazon.com/images/M/MV5BMTM3NTg2NDQzOF5BMl5BanBnXkFtZTcwNjc2NzQzOQ@@._V1_SX300.jpg"} title={"Fast & Furious 6"} />
-                    <MovieTile poster={"https://m.media-amazon.com/images/M/MV5BMTM3NTg2NDQzOF5BMl5BanBnXkFtZTcwNjc2NzQzOQ@@._V1_SX300.jpg"} title={"Fast & Furious 6"} />
-                    <MovieTile poster={"https://m.media-amazon.com/images/M/MV5BMTM3NTg2NDQzOF5BMl5BanBnXkFtZTcwNjc2NzQzOQ@@._V1_SX300.jpg"} title={"Fast & Furious 6"} />
+                <div className="searchResults__header">
+                    <h1>Search results for: <span className="maroon">"{searchBar}"</span></h1>
+                    {/* slide bar */}
                 </div>
-
+                { loading ? (
+                    <div className="loadingIcon"><LoopIcon /></div>
+                ):(
+                    movies.length > 0 ? (
+                        <div className="searchResults__container">
+                            { movies.map((movie) => (
+                                <MovieTile 
+                                    key={movie.imdbID}
+                                    id={movie.imdbID}
+                                />
+                            ))}
+                        </div>
+                    ):(
+                        <div className="movies__noResult">
+                            <img src={process.env.PUBLIC_URL + "/no-results.svg"} alt="" />
+                            <h1>Could not access any movies matching your search</h1>
+                            <p>This can happen because your search is too broad, or no movie matching is found. Try changing up your inputs!</p>
+                        </div>
+                    )
+                    
+                ) }
+            
             </div>
         </div>           
     )
