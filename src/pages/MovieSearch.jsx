@@ -5,24 +5,26 @@ import Nav from '../components/Nav';
 import './MovieSearch.css';
 import SearchIcon from '@mui/icons-material/Search';
 import LoopIcon from '@mui/icons-material/Loop';
+import { useLocation } from 'react-router-dom';
 
 function MovieSearch() {
+    const { state } = useLocation();
+    const { search_state } = state || { search_state: "" };
+    
     const [movies, setMovies] = useState([]);
-    const [search, setSearch] = useState("fast");
-    const [searchBar, setSearchBar] = useState("");
+    const [search, setSearch] = useState(search_state);
+    const [searchBar, setSearchBar] = useState(search_state);
     const [loading, setLoading] = useState(false);
 
     async function fetchMovies() {
         setSearchBar(search)
         setLoading(true);
-
         const { data } = await axios.get(`https://www.omdbapi.com/?s=${search.toString().replace(' ', '-')}&type=movie&apikey=dba29d20`);
         if (data.Response === "True" && search !== undefined) {
             setMovies(data.Search)
         } else {
             setMovies([]);
         }
-
         setLoading(false);
     }
 
@@ -75,6 +77,7 @@ function MovieSearch() {
                                 <MovieTile 
                                     key={movie.imdbID}
                                     id={movie.imdbID}
+                                    search_state={searchBar}
                                 />
                             ))}
                         </div>

@@ -18,13 +18,120 @@
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.17);
 }
 
+.movieDetails__container {
+    display: flex;
+    flex-direction: column;
+}
+
 .movieDetails {
     padding: 0 24px 24px 24px;
     display: flex;
 }
 
+.moviePoster {
+    flex: 0.3;
+}
+.moviePoster >img {
+    width: 100%;
+}
+
 .movieInformation__container {
     padding-left: 24px;
+    flex: 0.7;
     display: flex;
     flex-direction: column;
+}
+
+.movieInformation__container > h1 {
+    margin: 16px 0;
+    color: var(--movie-color);
+}
+.movieInformation__container > p {
+    margin-bottom: 8px;
+}
+
+.detailList {
+    list-style: none;
+}
+.detail {
+    font-weight: 400;
+    font-size: 16px;
+    margin: 8px 0px 8px 8px;
+}
+.detail > b {
+    color: var(--movie-color);
+}
+
+.movieDetails__ratings {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.ratingBubble {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 180px;
+    height: 180px;
+    padding: 20px;
+    background: rgb(104,29,29);
+    background: linear-gradient(220deg, rgba(104,29,29,1) 0%, rgba(189,93,93,1) 100%);
+    color: whitesmoke;
+    border-radius: 50%;
+}
+.ratingBubble > h2 {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+/* Skeleton */
+.movieDetail__skeleton {
+    display: flex;
+    padding: 24px;
+}
+.movieDetail__skeletonPoster {
+    background-color: gray;
+    flex: 0.3;
+    height: 500px;
+    margin: 0px 12px;
+}
+.movieDetail__skeletonInformation {
+    flex: 0.7;
+}
+
+.movieDetail__skeletonTitle {
+    height: 36px;
+    background-color: gray;
+    width: 80%;
+    margin: 12px 0;
+}
+.movieDetail__skeletonPlot {
+    height: 48px;
+    background-color: lightgray;
+    width: 90%;
+}
+
+.moveDetail__skeletonDetails {
+    list-style: none;
+}
+.moveDetail__skeletonDetail {
+    height: 12px;
+    width: 60%;
+    background-color: gray;
+    margin: 12px;
+}
+
+.skeletonBackground {
+  background: linear-gradient(29deg, #d2d2d2, #676767);
+  background-size: 400% 400%;
+
+  animation: movingGradient 1500ms ease infinite;
+}
+@keyframes movingGradient {
+  0%{background-position:0% 54%}
+  50%{background-position:100% 47%}
+  100%{background-position:0% 54%}
 }

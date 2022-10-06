@@ -150,3 +150,14 @@
 }
 
 /* keyframes animation background gradient for skeleton */
+.skeletonBackground {
+    background: linear-gradient(29deg, #d2d2d2, #676767);
+    background-size: 400% 400%;
+  
+    animation: movingGradient 1500ms ease infinite;
+  }
+  @keyframes movingGradient {
+    0%{background-position:0% 54%}
+    50%{background-position:100% 47%}
+    100%{background-position:0% 54%}
+  }

@@ -1,7 +1,10 @@
 .movieSearch {
     height: 100vh;
     overflow-y: scroll;
-    scrollbar-width: 0;
+    scrollbar-width: none;
+}
+.movieSearch::-webkit-scrollbar {
+    display: none;
 }
 
 .header {

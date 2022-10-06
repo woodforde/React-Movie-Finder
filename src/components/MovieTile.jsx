@@ -9,7 +9,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { useNavigate } from 'react-router-dom';
 
 
-function MovieTile({ id }) {
+function MovieTile({ id, search_state }) {
     const [info, setInfo] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -29,17 +29,17 @@ function MovieTile({ id }) {
     return (
         <div
             className="movieTile"
-            onClick={ () => !loading && navigate(`/movies/${id}`) }
+            onClick={ () => !loading && navigate(`/movies/${id}`, { state: { search_state: search_state }}) }
         >
             { loading ? (
                 <div className="skeleton">
-                    <div className="skeletonImage"></div>
+                    <div className="skeletonImage skeletonBackground"></div>
                     <div className="skeletonInformation">
-                        <div className="skeletonInformation__title"></div>
-                        <div className="skeletonInformation__feature"></div>
-                        <div className="skeletonInformation__feature"></div>
-                        <div className="skeletonInformation__feature"></div>
-                        <div className="skeletonRating"></div>
+                        <div className="skeletonInformation__title skeletonBackground"></div>
+                        <div className="skeletonInformation__feature skeletonBackground"></div>
+                        <div className="skeletonInformation__feature skeletonBackground"></div>
+                        <div className="skeletonInformation__feature skeletonBackground"></div>
+                        <div className="skeletonRating skeletonBackground"></div>
                     </div>
                 </div>
             ):(
@@ -48,7 +48,7 @@ function MovieTile({ id }) {
                 <div className="moviePoster">
                     <img 
                         className="moviePoster__image"
-                        src={info.length > 0 && (info[0].Poster !== "N/A" ? info[0].Poster : process.env.PUBLIC_URL + "/default-image.jpg")} 
+                        src={(info.length > 0 && info[0].Poster !== "N/A") ? info[0].Poster : process.env.PUBLIC_URL + "/default-image.jpg"} 
                         alt="" 
                     />
                     <div className="moviePoster__overlay">
