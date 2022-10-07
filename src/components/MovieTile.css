@@ -161,3 +161,22 @@
     50%{background-position:100% 47%}
     100%{background-position:0% 54%}
   }
+
+  /* Responsiveness */
+  @media (max-width: 840px) {
+    .movieTile {
+        width: calc(100% / 2.5);
+    }
+  }
+
+  @media (max-width: 668px) {
+    .moviePoster  {
+        width: 100%;
+    }
+  }
+
+  @media (max-width: 530px) {
+    .movieTile {
+        width: calc(100% / 1.25);
+    }
+  }

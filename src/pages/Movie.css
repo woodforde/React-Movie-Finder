@@ -1,3 +1,11 @@
+.movie {
+    overflow-y: scroll;
+    scrollbar-width: none;
+}
+.movie::-webkit-scrollbar {
+    display: none;
+}
+
 .backButton {
     margin: 16px;
     padding: 4px 16px 4px 8px;
@@ -65,6 +73,7 @@
 .movieDetails__ratings {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     margin-top: 20px;
 }
 
@@ -81,6 +90,7 @@
     background: linear-gradient(220deg, rgba(104,29,29,1) 0%, rgba(189,93,93,1) 100%);
     color: whitesmoke;
     border-radius: 50%;
+    margin: 8px;
 }
 .ratingBubble > h2 {
     font-size: 20px;
@@ -134,4 +144,27 @@
   0%{background-position:0% 54%}
   50%{background-position:100% 47%}
   100%{background-position:0% 54%}
+}
+
+/* Responsiveness */
+@media (max-width: 900px) {
+    .moviePoster {
+        flex: 0.5
+    }
+}
+
+@media (max-width: 668px) {
+    .movieDetails {
+        flex-direction: column;
+        align-items: center;
+    }
+    .moviePoster {
+        width: 60%;
+    }
+}
+
+@media (max-width: 400px) {
+    .moviePoster {
+        width: 90%;
+    }
 }

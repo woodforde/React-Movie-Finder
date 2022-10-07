@@ -92,3 +92,9 @@
 .link__primary--white button:hover {
     color: whitesmoke;
 }
+
+@media (max-width: 560px) {
+    .link__primary--black { display: none; }
+    .link__primary--white { display: none; }
+    .logo__text { display: none }
+}
