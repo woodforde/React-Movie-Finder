@@ -9,7 +9,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { useNavigate } from 'react-router-dom';
 
 
-function MovieTile({ id, search_state }) {
+function MovieTile({ id, search_state, page_state }) {
     const [info, setInfo] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -29,7 +29,11 @@ function MovieTile({ id, search_state }) {
     return (
         <div
             className="movieTile"
-            onClick={ () => !loading && navigate(`/movies/${id}`, { state: { search_state: search_state }}) }
+            onClick={ () => !loading && navigate(`/movies/${id}`, {
+                    state: {
+                        search_state: search_state,
+                        page_state: page_state
+                    }}) }
         >
             { loading ? (
                 <div className="skeleton">
@@ -78,7 +82,7 @@ function MovieTile({ id, search_state }) {
                         </li>
                     </ul>
                     {/* Rating */}
-                    <h2 className="rating"><StarIcon /> {info.length > 0 && info[0].imdbRating}/10</h2>
+                    <h2 className="rating"><StarIcon /> {info.length > 0 && info[0].imdbRating + (info[0].imdbRating !== "N/A" ? "/10" : "")}</h2>
                 </div>
                 </>
             )}

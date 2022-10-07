@@ -16,7 +16,11 @@ function Home() {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            navigate("/movies", { state: { search_state: search }});
+            navigate("/movies", {
+                    state: {
+                        search_state: search,
+                        page_state: 1
+                    }});
         }, 500)
     }
 

@@ -5,23 +5,33 @@ import Nav from '../components/Nav';
 import './MovieSearch.css';
 import SearchIcon from '@mui/icons-material/Search';
 import LoopIcon from '@mui/icons-material/Loop';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+
 import { useLocation } from 'react-router-dom';
 
 function MovieSearch() {
     const { state } = useLocation();
     const { search_state } = state || { search_state: "" };
+    const { page_state } = state || { page_state: 1 };
     
     const [movies, setMovies] = useState([]);
     const [search, setSearch] = useState(search_state);
     const [searchBar, setSearchBar] = useState(search_state);
+    const [year, setYear] = useState("");
+    const [page, setPage] = useState(page_state);
+    const [pageMax, setPageMax] = useState(0);
+
     const [loading, setLoading] = useState(false);
 
     async function fetchMovies() {
-        setSearchBar(search)
         setLoading(true);
-        const { data } = await axios.get(`https://www.omdbapi.com/?s=${search.toString().replace(' ', '-')}&type=movie&apikey=dba29d20`);
+        const { data } = await axios.get(
+            `https://www.omdbapi.com/?apikey=dba29d20&type=movie&s=${search.toString().replace(' ', '-')}&page=${page.toString()}`
+        );
         if (data.Response === "True" && search !== undefined) {
             setMovies(data.Search)
+            setPageMax(Math.ceil(parseInt(data.totalResults) / 10));
         } else {
             setMovies([]);
         }
@@ -30,7 +40,7 @@ function MovieSearch() {
 
     useEffect(() => {
         fetchMovies();
-    }, []);
+    }, [page, search]);
 
     return (
         <div className='movieSearch'>
@@ -49,24 +59,27 @@ function MovieSearch() {
                     <input
                         className="searchBar__input" 
                         type="text"
-                        value={search}
+                        value={searchBar}
                         placeholder="Type something and start searching!"
-                        onChange={(e) => { setSearch(e.target.value) }}
-                        onKeyDown={(e) => { e.key === "Enter" && fetchMovies() }}
+                        onChange={(e) => { setSearchBar(e.target.value) }}
+                        onKeyDown={(e) => { e.key === "Enter" && setSearch(searchBar) }}
                     />
                     <button
                         className="searchBar__button"
-                        onClick={ () => fetchMovies() }
+                        onClick={ () => setSearch(searchBar) }
                     ><SearchIcon /></button>
                 </div>
-
             </div>
 
             {/* Movie Results :  */}
             <div className="searchResults container">
                 <div className="searchResults__header">
-                    <h1>Search results for: <span className="maroon">"{searchBar}"</span></h1>
+                    <h1>Search results for: <span className="maroon">"{search}"</span></h1>
                     {/* slide bar */}
+                    <div className="yearSlider__container">
+                        <input type="checkbox" className="yearSlider__checkbox" />
+                        <input type="range" className="yearSlider" />
+                    </div>
                 </div>
                 { loading ? (
                     <div className="loadingIcon"><LoopIcon /></div>
@@ -77,7 +90,8 @@ function MovieSearch() {
                                 <MovieTile 
                                     key={movie.imdbID}
                                     id={movie.imdbID}
-                                    search_state={searchBar}
+                                    search_state={search}
+                                    page_state={page}
                                 />
                             ))}
                         </div>
@@ -88,9 +102,27 @@ function MovieSearch() {
                             <p>This can happen because your search is too broad, or no movie matching is found. Try changing up your inputs!</p>
                         </div>
                     )
-                    
-                ) }
-            
+                )}
+                {/* Page Changing */}
+                <div className="pageChange">
+                    <div
+                        className="pageNav"
+                        onClick={() => {
+                            if (page > 1) {
+                                setPage(page - 1);
+                            }
+                        }}
+                    ><ChevronLeftIcon /></div>
+                    <div className="currentPage">{page}</div>
+                    <div 
+                        className="pageNav"
+                        onClick={() => {
+                            if (page <= pageMax) {
+                                setPage(page + 1);
+                            }
+                        }}
+                    ><ChevronRightIcon /></div>
+                </div>
             </div>
         </div>           
     )

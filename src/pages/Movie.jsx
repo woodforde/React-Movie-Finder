@@ -13,6 +13,7 @@ function Movie() {
 
     const { state } = useLocation();
     const { search_state } = state || { search_state: "" };
+    const { page_state } = state || { page_state: 1 };
 
     const [movie, setMovie] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -33,7 +34,11 @@ function Movie() {
 
             <button
                 className="backButton"
-                onClick={() => navigate("/movies", { state: {search_state: search_state}})}
+                onClick={() => navigate("/movies", {
+                        state: {
+                            search_state: search_state,
+                            page_state: page_state
+                        }})}
             ><ArrowBackIcon /> Back</button>
             { loading ? (
                 <div className="movieDetail__skeleton">
@@ -59,7 +64,7 @@ function Movie() {
                 <div className="movieDetails__container">
                     <div className="movieDetails">
                         <div className="moviePoster">
-                            <img src={movie[0].Poster} alt="" />
+                            <img src={movie[0].Poster === "N/A" ? process.env.PUBLIC_URL + "/default-image.jpg" : movie[0].Poster} alt="" />
                         </div>
                         <div className="movieInformation__container">
                             <h1>{movie[0].Title}</h1>
