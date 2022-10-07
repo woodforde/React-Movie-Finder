@@ -14,6 +14,8 @@ function Movie() {
     const { state } = useLocation();
     const { search_state } = state || { search_state: "" };
     const { page_state } = state || { page_state: 1 };
+    const { year_state } = state || { page_state: "2000" };
+    const { yearActive_state } = state || { page_state: false };
 
     const [movie, setMovie] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -37,7 +39,9 @@ function Movie() {
                 onClick={() => navigate("/movies", {
                         state: {
                             search_state: search_state,
-                            page_state: page_state
+                            page_state: page_state,
+                            year_state: year_state,
+                            yearActive_state: yearActive_state
                         }})}
             ><ArrowBackIcon /> Back</button>
             { loading ? (

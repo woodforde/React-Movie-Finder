@@ -19,7 +19,9 @@ function Home() {
             navigate("/movies", {
                     state: {
                         search_state: search,
-                        page_state: 1
+                        page_state: 1,
+                        year_state: "2000",
+                        yearActive_state: false
                     }});
         }, 500)
     }

@@ -9,7 +9,7 @@ import StarIcon from '@mui/icons-material/Star';
 import { useNavigate } from 'react-router-dom';
 
 
-function MovieTile({ id, search_state, page_state }) {
+function MovieTile({ id, search_state, page_state, year_state, yearActive_state }) {
     const [info, setInfo] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -32,7 +32,9 @@ function MovieTile({ id, search_state, page_state }) {
             onClick={ () => !loading && navigate(`/movies/${id}`, {
                     state: {
                         search_state: search_state,
-                        page_state: page_state
+                        page_state: page_state,
+                        year_state: year_state,
+                        yearActive_state: yearActive_state
                     }}) }
         >
             { loading ? (
